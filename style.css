@@ -1,0 +1,513 @@
+/* ===========================
+   VARIÁVEIS E RESET
+=========================== */
+:root {
+  --bg: #0f0f13;
+  --bg2: #16161d;
+  --bg3: #1e1e28;
+  --border: #2a2a38;
+  --text: #e8e8f0;
+  --text2: #8888aa;
+  --accent: #c8a96e;
+  --accent2: #e8c98e;
+  --receita: #4ecb8d;
+  --despesa: #e05c6e;
+  --radius: 14px;
+  --shadow: 0 4px 32px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+.header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-icon {
+  color: var(--accent);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.header-title h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 0.3px;
+}
+
+.mes-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  padding: 6px 14px;
+}
+
+.btn-mes {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 2px;
+  transition: opacity 0.15s;
+}
+.btn-mes:hover { opacity: 0.7; }
+
+.label-mes {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: capitalize;
+  min-width: 110px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ===========================
+   MAIN
+=========================== */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ===========================
+   CARDS RESUMO
+=========================== */
+.resumo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-2px); }
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.card-receita::before { background: var(--receita); }
+.card-despesa::before { background: var(--despesa); }
+.card-saldo::before { background: var(--accent); }
+
+.card-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+
+.card-valor {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.card-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.card-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.receita-fill { background: var(--receita); }
+.despesa-fill { background: var(--despesa); }
+
+.card-sub {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+
+/* ===========================
+   SECTION TITLE
+=========================== */
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+/* ===========================
+   FORMULÁRIO
+=========================== */
+.form-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.span2 { grid-column: span 2; }
+.form-group.span-full { grid-column: 1 / -1; }
+
+label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text2);
+}
+
+input, select {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+input::placeholder { color: var(--text2); }
+
+input:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200,169,110,0.12);
+}
+
+select option { background: var(--bg3); }
+
+.btn-group { align-items: flex-end; }
+
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  color: #0f0f13;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 28px;
+  letter-spacing: 0.3px;
+  transition: background 0.2s, transform 0.1s;
+  align-self: flex-end;
+}
+
+.btn-primary:hover { background: var(--accent2); }
+.btn-primary:active { transform: scale(0.97); }
+
+/* ===========================
+   LISTA DE LANÇAMENTOS
+=========================== */
+.lista-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.lista-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.lista-header .section-title { margin-bottom: 0; }
+
+.filtros {
+  display: flex;
+  gap: 6px;
+}
+
+.filtro-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text2);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  transition: all 0.2s;
+}
+
+.filtro-btn.ativo, .filtro-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0f0f13;
+}
+
+.lista-gastos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.lista-gastos::-webkit-scrollbar { width: 4px; }
+.lista-gastos::-webkit-scrollbar-track { background: transparent; }
+.lista-gastos::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+.lista-vazia {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text2);
+}
+.lista-vazia span {
+  font-size: 32px;
+  color: var(--border);
+  display: block;
+  margin-bottom: 12px;
+}
+.lista-vazia p { font-size: 14px; line-height: 1.7; }
+
+/* ITEM */
+.item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: background 0.15s;
+  animation: slideIn 0.25s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.item:hover { background: #21212d; }
+
+.item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.item-dot.receita { background: var(--receita); }
+.item-dot.despesa { background: var(--despesa); }
+
+.item-info { flex: 1; min-width: 0; }
+
+.item-desc {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-meta {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 1px;
+}
+
+.item-valor {
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+.item-valor.receita { color: var(--receita); }
+.item-valor.despesa { color: var(--despesa); }
+
+.item-delete {
+  background: none;
+  border: none;
+  color: var(--border);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  line-height: 1;
+}
+.item-delete:hover { color: var(--despesa); background: rgba(224,92,110,0.1); }
+
+/* ===========================
+   GRÁFICO CATEGORIAS
+=========================== */
+.categorias-section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.grafico-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lista-vazia-small {
+  color: var(--text2);
+  font-size: 13px;
+  text-align: center;
+  padding: 16px;
+}
+
+.cat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideIn 0.3s ease;
+}
+
+.cat-nome {
+  font-size: 13px;
+  color: var(--text2);
+  min-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cat-barra-wrap {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.cat-barra {
+  height: 100%;
+  background: var(--despesa);
+  border-radius: 99px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.cat-valor {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 80px;
+  text-align: right;
+}
+
+.cat-pct {
+  font-size: 11px;
+  color: var(--text2);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ===========================
+   TOAST
+=========================== */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  white-space: nowrap;
+  z-index: 999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+@media (max-width: 640px) {
+  .resumo-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.span2 { grid-column: span 1; }
+  .header-inner { flex-direction: column; gap: 12px; }
+  .lista-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
